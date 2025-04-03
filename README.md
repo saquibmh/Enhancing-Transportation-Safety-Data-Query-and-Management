@@ -78,6 +78,39 @@ Open and run rag.ipynb
 
 ## Agentic AI on AADT Data Implementation
 
+### **Project Setup**
+Follow these steps to set up and run the project:
+
+#### 1. Change Directory
+```bash
+cd aadt_agentic
+```
+
+#### 2. Create a Virtual Environment
+```bash
+python -m venv venv
+```
+
+#### 3. Activate Virtual Environment
+   - On Windows:
+   ```bash
+   venv\Scripts\activate
+   ```
+
+   - On macOS/Linux:
+   ```bash
+   source venv/bin/activate
+   ```
+
+#### 4. Set Up Environment Variables
+Create a .env file in the project root and add the following:
+```bash
+OPENAI_API_KEY=your_openai_api_key_here
+```
+
+#### 5. Run the Notebook
+Open and run aadt_agentic_ai.ipynb
+
 ### **Notebook Setup**
 The project includes a Jupyter Notebook implementation that installs dependencies and processes multiple Excel files containing AADT data:
 
