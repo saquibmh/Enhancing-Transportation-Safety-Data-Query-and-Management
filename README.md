@@ -14,36 +14,65 @@ Analyze the "Arizona Crash Facts 2023" PDF document using Retrieval-Augmented Ge
 
 ### **Methods**
 1. **Direct PDF Text Extraction:**
-   - Extracts raw text from the PDF using `pypdf`.
-   - Uses `TextLoader` and `RecursiveCharacterTextSplitter` for processing.
-   - Stores embeddings with `Annoy` for retrieval.
-   - Queries are processed via OpenAI's GPT-4o-mini.
+   - This method extracts all the text from the PDF using `pypdf` and indexes it directly.
+   - LangChain's `TextLoader` and `RecursiveCharacterTextSplitter` are used to load and chunk the text.
+   - Hugging Face embeddings and `Annoy` are used for vector storage and retrieval.
+   - Queries are processed via OpenAI's gpt-4o-mini.
    
 2. **Table Separation with Document Intelligence:**
-   - Pre-processes the PDF to separate tables and text.
-   - Indexes structured and unstructured data separately.
+   - This method uses a pre-processed Markdown file where tables and text are separated from the text using `Document Intelligence`.
+   - Tables and text are indexed using Hugging Face embeddings and `Annoy`.
    - Retrieves information using a RAG pipeline.
 
 3. **Table Summarization with LLM:**
-   - Summarizes tables and text with GPT-4.
+   - Summarizes tables and text with gpt-4o-mini.
    - Combines structured and summarized content for indexing.
    - Enhances responses using a RAG pipeline.
 
-4. **Table Summarization with LLM and Table Context:**
+4. **Table Summarization with LLM and Table input as Context:**
    - Uses pre-generated summaries alongside table data.
-   - Combines retrieved tables and summaries to provide accurate insights.
+   - The pre-generated summaries are using for indexing and retrieval.
+   - Once summary is retrieved, the corresponding table is sent as context to LLM.
+   - Retrieves information using a RAG pipeline.
    
 ### **Installation & Setup**
+
+Follow these steps to set up and run the project:
+
+#### 1. Change Directory
 ```bash
-# Install dependencies
-pip install langchain-huggingface langchain_community annoy pypdf
+cd arizona_crash_facts
 ```
 
-### **Usage**
+#### 2. Create a Virtual Environment
 ```bash
-# Run the RAG pipeline on Arizona Crash Facts
-python crash_facts_rag.py --query "What are the top causes of accidents in 2023?"
+python -m venv venv
 ```
+
+#### 3. Activate Virtual Environment
+   - On Windows:
+   ```bash
+   venv\Scripts\activate
+   ```
+
+   - On macOS/Linux:
+   ```bash
+   source venv/bin/activate
+   ```
+
+#### 4. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+#### 5. Set Up Environment Variables
+Create a .env file in the project root and add the following:
+```bash
+OPENAI_API_KEY=your_openai_api_key_here
+```
+
+#### 6. Run the Notebook
+Open and run rag.ipynb
 
 ---
 
@@ -111,15 +140,6 @@ exit_7_aadt_2021 = df[(df['Start'].str.contains('Exit 7 Araby Rd')) & (df['End']
 exit_7_aadt_2021_value = exit_7_aadt_2021.values
 print(exit_7_aadt_2021_value)
 ```
-
----
-
-## Contributing
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature-branch`).
-3. Commit changes (`git commit -m 'Added new feature'`).
-4. Push to the branch (`git push origin feature-branch`).
-5. Open a Pull Request.
 
 ---
 
